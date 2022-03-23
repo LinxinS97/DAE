@@ -13,13 +13,12 @@ def sample_batch(loader):
         for batch in loader:
             yield batch
 
-path = "./res/"
+path = './res/'
 
 channel = 3
 img_size = 32
-test_clean_list = glob.glob('./dataset/TEST/*/*.png')
-test_noise_list = glob.glob('./dataset/TEST_NOISE/*/*.png')
-test_dataset = MyDataset(np.array(list(zip(test_clean_list, test_noise_list))), transform=test_transform)
+test_list = glob.glob('./dataset/TEST/*/*.png')
+test_dataset = MyDataset(test_list, transform=test_transform)
 
 
 test_loader = DataLoader(dataset=test_dataset,
@@ -29,13 +28,13 @@ test_loader = DataLoader(dataset=test_dataset,
 test_loader = sample_batch(test_loader)
 
 model = DAE(channel)
-model.load_state_dict(torch.load('./model/ResNet_params_epoch29.pth'))
+model.load_state_dict(torch.load('./model/DAE_params_epoch200.pth'))
 model.eval()
 
-print("num_of_test: ", len(test_dataset))
+print('num_of_test: ', len(test_dataset))
 
 test_imgs = np.random.randint(0, 10000, size=6)
-for idx in range(5):
+for idx in range(10):
     clean, noise, label = next(test_loader)
     clean = clean.view(-1, channel, img_size, img_size).type(torch.FloatTensor)
     noise = noise.view(-1, channel, img_size, img_size).type(torch.FloatTensor)
@@ -55,10 +54,10 @@ for idx in range(5):
     clean = clean.detach().cpu().numpy()
 
     # imshow在wsl上会出问题，所以这里用了保存文件的方式
-    cv2.imwrite("./res/{}_clean.png".format(idx), clean*255)
-    cv2.imwrite("./res/{}_noise.png".format(idx), noise*255)
-    cv2.imwrite("./res/{}_output.png".format(idx), output*255)
+    cv2.imwrite('./res/{}_clean.png'.format(idx), clean*255)
+    cv2.imwrite('./res/{}_noise.png'.format(idx), noise*255)
+    cv2.imwrite('./res/{}_output.png'.format(idx), output*255)
 
-    # axes[idx, 0].imshow(clean, cmap="gray")
-    # axes[idx, 1].imshow(noise, cmap="gray")
-    # axes[idx, 2].imshow(output, cmap="gray")
+    # cv2.imshow(clean*255)
+    # cv2.imshow(noise*255)
+    # cv2.imshow(output*255)
