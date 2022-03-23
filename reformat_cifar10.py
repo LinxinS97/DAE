@@ -76,6 +76,16 @@ label_name = [
     "truck"
 ]
 
+os.mkdir('dataset/TRAIN')
+os.mkdir('dataset/TRAIN_NOISE')
+os.mkdir('dataset/TEST')
+os.mkdir('dataset/TEST_NOISE')
+
+if not os.path.exists("model"):
+    os.mkdir("model")
+if not os.path.exists("res"):
+    os.mkdir("res")
+
 train_list = glob.glob("./dataset/data_batch_*")
 test_list = glob.glob("./dataset/test_batch")
 
