@@ -5,8 +5,6 @@ from torchvision import transforms
 from torch.utils.data import Dataset
 
 
-BATCH_SIZE = 32
-
 label_name = [
     'airplane',
     'automobile',

@@ -3,6 +3,7 @@ import cv2
 import glob
 import numpy as np
 
+
 def mkdir(path):
     if not os.path.exists(path):
         os.mkdir(path)
@@ -42,7 +43,6 @@ def generate_dataset(f_list, path):
             #
             # cv2.imwrite('{}/{}/{}'.format(path_noise, im_label_name, im_name.decode('utf-8')), im_data)
 
-
 label_name = [
     'airplane',
     'automobile',
@@ -55,18 +55,20 @@ label_name = [
     'ship',
     'truck'
 ]
-train_path = './dataset/TRAIN'
-# train_path_noise = './dataset/TRAIN_NOISE'
-test_path = './dataset/TEST'
-# test_path_noise = './dataset/TEST_NOISE'
 
-mkdir(train_path)
-mkdir(test_path)
-mkdir('model')
-mkdir('res')
+if __name__ == '__main__':
+    train_path = './dataset/TRAIN'
+    # train_path_noise = './dataset/TRAIN_NOISE'
+    test_path = './dataset/TEST'
+    # test_path_noise = './dataset/TEST_NOISE'
 
-train_list = glob.glob('./dataset/data_batch_*')
-test_list = glob.glob('./dataset/test_batch')
+    mkdir(train_path)
+    mkdir(test_path)
+    mkdir('model')
+    mkdir('res')
 
-generate_dataset(train_list, train_path)
-generate_dataset(test_list, test_path)
+    train_list = glob.glob('./dataset/data_batch_*')
+    test_list = glob.glob('./dataset/test_batch')
+
+    generate_dataset(train_list, train_path)
+    generate_dataset(test_list, test_path)

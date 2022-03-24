@@ -1,8 +1,6 @@
 import glob
-
 import cv2
 import torch
-import numpy as np
 from torch.utils.data import DataLoader
 from load_cifar10 import MyDataset, test_transform
 from model import DAE
@@ -33,7 +31,6 @@ model.eval()
 
 print('num_of_test: ', len(test_dataset))
 
-test_imgs = np.random.randint(0, 10000, size=6)
 for idx in range(10):
     clean, noise, label = next(test_loader)
     clean = clean.view(-1, channel, img_size, img_size).type(torch.FloatTensor)
