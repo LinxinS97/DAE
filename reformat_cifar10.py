@@ -55,19 +55,18 @@ label_name = [
     'ship',
     'truck'
 ]
-mkdir('dataset/TRAIN')
-mkdir('dataset/TEST')
+train_path = './dataset/TRAIN'
+# train_path_noise = './dataset/TRAIN_NOISE'
+test_path = './dataset/TEST'
+# test_path_noise = './dataset/TEST_NOISE'
 
+mkdir(train_path)
+mkdir(test_path)
 mkdir('model')
 mkdir('res')
 
 train_list = glob.glob('./dataset/data_batch_*')
 test_list = glob.glob('./dataset/test_batch')
-
-train_path = './dataset/TRAIN'
-# train_path_noise = './dataset/TRAIN_NOISE'
-test_path = './dataset/TEST'
-# test_path_noise = './dataset/TEST_NOISE'
 
 generate_dataset(train_list, train_path)
 generate_dataset(test_list, test_path)
