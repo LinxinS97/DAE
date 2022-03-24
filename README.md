@@ -1,4 +1,4 @@
-# Denoise AutoEncoder (DAE)
+# Denoising AutoEncoder (DAE)
 
 ## Dataset
 cifar-10
