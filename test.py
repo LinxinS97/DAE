@@ -3,7 +3,7 @@ import cv2
 import torch
 from torch.utils.data import DataLoader
 from load_cifar10 import MyDataset, test_transform
-from model import DAE
+from model import DAE, DCNN
 
 
 def sample_batch(loader):
@@ -25,8 +25,9 @@ test_loader = DataLoader(dataset=test_dataset,
                          num_workers=4)
 test_loader = sample_batch(test_loader)
 
-model = DAE(channel)
-model.load_state_dict(torch.load('./model/DAE_params_epoch200.pth'))
+# model = DAE(channel, img_size)
+model = DCNN(channel)
+model.load_state_dict(torch.load('./model/DCNN_params_epoch200.pth'))
 model.eval()
 
 print('num_of_test: ', len(test_dataset))
@@ -35,6 +36,8 @@ for idx in range(10):
     clean, noise, label = next(test_loader)
     clean = clean.view(-1, channel, img_size, img_size).type(torch.FloatTensor)
     noise = noise.view(-1, channel, img_size, img_size).type(torch.FloatTensor)
+    # clean = clean.view(-1, channel*img_size**2).type(torch.FloatTensor)
+    # noise = noise.view(-1, channel*img_size**2).type(torch.FloatTensor)
 
     output = model(noise)
 
